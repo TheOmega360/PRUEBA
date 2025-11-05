@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Registro de Atenciones - RespIA (Prototipo)</title>
+<style>
+  :root{--sidebar:#0f172a;--accent:#2563eb;--card:#f8fafc;--muted:#6b7280}
+  body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; background:#f1f5f9; color:#0f172a;}
+  .app{display:flex; height:100vh; overflow:hidden;}
+  .sidebar{width:220px; background:var(--sidebar); color:white; padding:20px; display:flex; flex-direction:column; gap:18px;}
+  .side-item{display:flex; align-items:center; gap:12px; padding:10px; border-radius:8px; cursor:pointer;}
+  .side-item:hover{background:rgba(255,255,255,0.05);}
+  .side-icon{width:36px; height:36px; display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,0.06);}
+  .main{flex:1; display:flex; flex-direction:column;}
+  .header{height:64px; background:white; display:flex; align-items:center; justify-content:space-between; padding:0 20px; border-bottom:1px solid #e6edf3;}
+  .title{font-weight:700}
+  .user{display:flex;align-items:center;gap:12px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:#ddd;display:inline-block}
+  .content{padding:20px; overflow:auto}
+  .card{background:white;border-radius:10px;padding:18px; box-shadow:0 2px 8px rgba(15,23,42,0.04); max-width:1000px}
+  form .row{display:flex; gap:12px; margin-bottom:12px; align-items:center;}
+  label{min-width:110px; font-size:14px; color:var(--muted);}
+  input[type=text], input[type=number], select, input[type=date]{padding:8px 10px; border:1px solid #d1d5db; border-radius:6px; min-width:180px;}
+  .small{min-width:80px}
+  .two-col{display:flex; gap:12px}
+  .section-title{font-weight:600; margin:10px 0;}
+  textarea{width:100%; min-height:60px; padding:8px 10px; border-radius:6px; border:1px solid #d1d5db;}
+  table{width:100%; border-collapse:collapse; margin-top:10px;}
+  th, td{border:1px solid #e6eef6; padding:8px; text-align:left; font-size:14px;}
+  th{background:#f8fafc; color:#374151}
+  .add-row{margin-top:8px; padding:8px 12px; background:var(--accent); color:white; border:none; border-radius:6px; cursor:pointer;}
+  .btn-save{background:#10b981;color:white;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;margin-top:12px}
+  .field-inline{display:flex; gap:8px; align-items:center;}
+  .muted{color:var(--muted); font-size:13px}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="side-item" title="Registro de atenciones">
+      <div class="side-icon">✏️</div>
+      <div>Registro de atenciones</div>
+    </div>
+
+    <div class="side-item" title="Lista">
+      <div class="side-icon">📋</div>
+      <div>Lista</div>
+    </div>
+
+    <!-- NUEVA SECCIÓN AGREGADA -->
+    <div class="side-item" title="Generador de reportes">
+      <div class="side-icon">📊</div>
+      <div>Generador de reportes</div>
+    </div>
+    <!-- FIN DE NUEVA SECCIÓN -->
+
+    <div class="side-item" title="Cerrar sesión">
+      <div class="side-icon">🚪</div>
+      <div>Cerrar sesión</div>
+    </div>
+
+    <div style="flex:1"></div>
+    <div class="muted">© RespIA - prototipo</div>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <div class="title">Registro de Atenciones</div>
+      <div class="user">
+        <div style="text-align:right; margin-right:8px">
+          <div style="font-weight:600">Dr. Luis</div>
+          <div class="muted">Médico</div>
+        </div>
+        <div class="avatar" aria-hidden="true"></div>
+        <div style="padding-left:8px; cursor:pointer">⋮</div>
+      </div>
+    </header>
+
+    <section class="content">
+      <div class="card">
+        <form id="form-atencion" onsubmit="return false">
+          <div class="row">
+            <label>Día</label>
+            <input type="number" min="1" max="31" value="1" class="small" />
+            <label>Mes</label>
+            <select>
+              <option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option>
+              <option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option>
+              <option>Setiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label>Turno</label>
+            <select>
+              <option>M</option><option>T</option><option>N</option>
+            </select>
+
+            <label>UPSS</label>
+            <input type="text" placeholder="UPSS" />
+
+            <label>DNI Px</label>
+            <input type="text" placeholder="DNI" />
+
+            <label>HC</label>
+            <input type="text" placeholder="HC" class="small" />
+          </div>
+
+          <div class="row">
+            <label>Nombres</label>
+            <input type="text" placeholder="Nombres completos" style="flex:1" />
+          </div>
+
+          <div class="row">
+            <label>Apellido Materno</label>
+            <input type="text" placeholder="Apellido materno" />
+            <label>Apellido Paterno</label>
+            <input type="text" placeholder="Apellido paterno" />
+          </div>
+
+          <div class="row">
+            <label>Financiador</label>
+            <select>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+              <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+            </select>
+
+            <label>Etnia</label>
+            <input type="text" placeholder="Etnia" />
+
+            <label>Fecha Nac.</label>
+            <input type="date" />
+
+            <label>Edad</label>
+            <input type="number" class="small" />
+          </div>
+
+          <div class="row">
+            <label>Establecimiento</label>
+            <select><option>N</option><option>C</option><option>R</option></select>
+            <label>Servicio</label>
+            <select><option>N</option><option>C</option><option>R</option></select>
+          </div>
+
+          <div class="section-title">DX y Actividades realizadas</div>
+          <textarea placeholder="Descripción de diagnóstico y actividades..."></textarea>
+
+          <div class="section-title">Códigos CIE10</div>
+          <table id="cie-table">
+            <thead>
+              <tr>
+                <th>Código CIE10</th>
+                <th>Descripción</th>
+                <th>Tipo Diagnóstico</th>
+                <th>Valor 1</th>
+                <th>Valor 2</th>
+                <th>Valor 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" /></td>
+                <td><input type="text" /></td>
+                <td><select><option>P</option><option>D</option><option>R</option></select></td>
+                <td><input type="text" /></td>
+                <td><input type="text" /></td>
+                <td><input type="text" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="add-row" onclick="addRow()">+ Agregar fila</button>
+          <br/>
+          <button class="btn-save" onclick="alert('Formulario (prototipo) guardado (simulado)')">Guardar</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+function addRow(){
+  const tbody = document.querySelector('#cie-table tbody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" /></td>
+    <td><input type="text" /></td>
+    <td><select><option>P</option><option>D</option><option>R</option></select></td>
+    <td><input type="text" /></td>
+    <td><input type="text" /></td>
+    <td><input type="text" /></td>
+  `;
+  tbody.appendChild(tr);
+}
+</script>
+
+</body>
+</html>
